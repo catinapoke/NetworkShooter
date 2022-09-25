@@ -81,7 +81,7 @@ namespace GameNetwork
             if (_startTime < 0) 
                 yield break;
 
-            NetworkManager.Singleton.SceneManager.LoadScene("Match", LoadSceneMode.Single);
+            NetworkManager.SceneManager.LoadScene("Match", LoadSceneMode.Single);
         }
     }
 }

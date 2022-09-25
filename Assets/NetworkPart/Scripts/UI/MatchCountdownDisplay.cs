@@ -19,7 +19,7 @@ namespace GameUI
 
         private void OnGUI()
         {
-            _text.text = _matchStarter.StartTime > 0 ? _matchStarter.Countdown.ToString("f1") : "";
+            _text.text = _matchStarter.StartTime > 0 ? Math.Max(_matchStarter.Countdown, 0.0).ToString("f1") : "";
         }
     }
 }
