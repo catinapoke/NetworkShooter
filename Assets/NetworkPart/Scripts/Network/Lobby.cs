@@ -59,12 +59,6 @@ namespace GameNetwork
             base.OnNetworkDespawn();
         }
 
-        public void Exit()
-        {
-            NetworkManager.Singleton.Shutdown();
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-        }
-
         public void RequestSwitchReadyStatus(bool status)
         {
             if (IsServer)

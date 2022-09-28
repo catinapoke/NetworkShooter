@@ -1,5 +1,4 @@
-﻿using System;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -13,21 +12,22 @@ namespace GameNetwork
         
         private NetworkObject LocalPlayerObject => GetNetworkObject(_playerObject.Value.NetworkObjectId);
         
-
         public ulong PlayerObjectId => _playerObject.Value.NetworkObjectId;
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            gameObject.name = $"Player_{OwnerClientId}";
+        }
 
         public void SpawnPlayerObject(Vector3 position)
         {
             Assert.IsTrue(IsServer, "It is supposed that server spawns everything!");
-            SpawnPlayerServerRpc(position);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void SpawnPlayerServerRpc(Vector3 position)
-        {
+            
             NetworkObject playerObject = Instantiate(_playerObjectPrefab);
             playerObject.transform.position = position;
             playerObject.SpawnWithOwnership(OwnerClientId, true);
+            playerObject.name = $"PlayerObject_{OwnerClientId}";
             _playerObject.Value = playerObject;
         }
     }
